@@ -1,9 +1,10 @@
-"""Custom modern PyQt6 widgets for YT All-In-One Studio."""
+"""Custom modern PyQt6 widgets for wlz-yt."""
 
 from __future__ import annotations
 
 import os
 import subprocess
+import sys
 from typing import Callable, Optional
 
 from PyQt6.QtCore import QPoint, QRect, QRectF, QSize, Qt, pyqtSignal
@@ -561,10 +562,52 @@ class HistoryItemRow(QFrame):
                 pass
 
     def _reveal_in_explorer(self) -> None:
-        path = os.path.normpath(self.result.output_path)
-        if os.path.exists(path):
-            subprocess.Popen(["explorer.exe", f"/select,{path}"])
-        else:
-            parent_dir = os.path.dirname(path)
-            if os.path.isdir(parent_dir):
+        path = os.path.abspath(os.path.normpath(self.result.output_path))
+        if os.path.exists(path) and sys.platform == "win32":
+            # Use Windows Shell API directly so spaces, commas, and Unicode paths always select properly
+            try:
+                import ctypes
+                from ctypes import wintypes
+
+                shell32 = ctypes.windll.shell32
+                ole32 = ctypes.windll.ole32
+
+                ole32.CoInitialize.argtypes = [ctypes.c_void_p]
+                ole32.CoInitialize.restype = ctypes.HRESULT
+                shell32.ILCreateFromPathW.argtypes = [wintypes.LPCWSTR]
+                shell32.ILCreateFromPathW.restype = ctypes.c_void_p
+                shell32.SHOpenFolderAndSelectItems.argtypes = [
+                    ctypes.c_void_p,
+                    wintypes.UINT,
+                    ctypes.c_void_p,
+                    wintypes.DWORD,
+                ]
+                shell32.SHOpenFolderAndSelectItems.restype = ctypes.HRESULT
+                shell32.ILFree.argtypes = [ctypes.c_void_p]
+                shell32.ILFree.restype = None
+
+                ole32.CoInitialize(None)
+                pidl = shell32.ILCreateFromPathW(path)
+                if pidl:
+                    try:
+                        hr = shell32.SHOpenFolderAndSelectItems(pidl, 0, None, 0)
+                        if hr >= 0:
+                            return
+                    finally:
+                        shell32.ILFree(pidl)
+            except Exception:
+                pass
+
+            # Fallback: /select, must remain unquoted before the quoted path on Windows
+            try:
+                subprocess.Popen(f'explorer.exe /select,"{path}"')
+                return
+            except Exception:
+                pass
+
+        parent_dir = os.path.dirname(path)
+        if os.path.isdir(parent_dir):
+            try:
                 os.startfile(parent_dir)  # type: ignore[attr-defined]
+            except Exception:
+                pass

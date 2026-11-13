@@ -1,4 +1,4 @@
-"""Theme palette, Windows 11 dark titlebar helper, and QSS styles for YT All-In-One Studio."""
+"""Theme palette, Windows 11 dark titlebar helper, and QSS styles for wlz-yt."""
 
 from __future__ import annotations
 

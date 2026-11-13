@@ -1,4 +1,4 @@
-"""Custom High-DPI Vector Icons painted with QPainter for YT All-In-One Studio."""
+"""Custom High-DPI Vector Icons painted with QPainter for wlz-yt."""
 
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ from PyQt6.QtGui import (
 
 
 def create_app_logo_pixmap(size: int = 44) -> QPixmap:
-    """Render the YT All-In-One Studio vector app badge."""
+    """Render the wlz-yt vector app badge."""
     pix = QPixmap(size, size)
     pix.fill(Qt.GlobalColor.transparent)
 

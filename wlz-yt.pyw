@@ -1,4 +1,4 @@
-"""Windowless standalone launcher for YT All-In-One Studio on Windows."""
+"""Windowless standalone launcher for wlz-yt on Windows."""
 
 from app import main
 

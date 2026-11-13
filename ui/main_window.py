@@ -1,4 +1,4 @@
-"""Main standalone Windows application window for YT All-In-One Studio."""
+"""Main standalone Windows application window for wlz-yt."""
 
 from __future__ import annotations
 
@@ -149,11 +149,11 @@ AUDIO_FORMAT_HINTS = {
 
 
 class MainWindow(QMainWindow):
-    """Standalone Windows GUI for YT All-In-One Studio."""
+    """Standalone Windows GUI for wlz-yt."""
 
     def __init__(self) -> None:
         super().__init__()
-        self.setWindowTitle("YT All-In-One Studio — Universal Editor-Ready Downloader")
+        self.setWindowTitle("wlz-yt — Universal Editor-Ready Downloader")
         self.setWindowIcon(create_app_icon())
         self.resize(980, 840)
         self.setMinimumSize(640, 560)
@@ -298,7 +298,7 @@ class MainWindow(QMainWindow):
         title_col.setContentsMargins(0, 0, 0, 0)
         title_col.setSpacing(1)
 
-        app_title = QLabel("YT All-In-One Studio")
+        app_title = QLabel("wlz-yt")
         app_title.setStyleSheet(f"font-size: 19px; font-weight: 800; color: {TEXT_PRIMARY};")
         title_col.addWidget(app_title)
 

@@ -1,4 +1,4 @@
-"""Entry point for YT All-In-One Studio standalone Windows desktop app."""
+"""Entry point for wlz-yt standalone Windows desktop app."""
 
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ def main() -> int:
     if sys.platform == "win32":
         try:
             ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(
-                "ytallinone.studio.desktop.1"
+                "wlz.yt.desktop.1"
             )
         except Exception:
             pass
@@ -27,8 +27,8 @@ def main() -> int:
     )
 
     app = QApplication(sys.argv)
-    app.setApplicationName("YT All-In-One Studio")
-    app.setOrganizationName("YTAllInOneStudio")
+    app.setApplicationName("wlz-yt")
+    app.setOrganizationName("wlz-yt")
     app.setWindowIcon(create_app_icon())
 
     window = MainWindow()

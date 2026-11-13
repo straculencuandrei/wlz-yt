@@ -1,1 +1,1 @@
-"""Modern PyQt6 Standalone UI package for YT All-In-One Studio."""
+"""Modern PyQt6 Standalone UI package for wlz-yt."""
