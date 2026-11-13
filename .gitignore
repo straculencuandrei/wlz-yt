@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+bin/*.exe
+Downloads/
+settings.json
+cookies.txt
+.ytdl_stage_*/
+
+.venv/
+venv/
+.DS_Store
+Thumbs.db
